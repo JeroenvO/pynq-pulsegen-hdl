@@ -16,6 +16,7 @@
 	(
 		// Users to add ports here
         input wire sysclk,
+//        input wire fastclk,
         input wire [1:0] sw,
 //        input wire [3:0] btn,
         output wire [3:0] led,
@@ -83,6 +84,7 @@
 		.S_AXI_RREADY(s00_axi_rready),
 		
 		 .sysclk(sysclk),
+//		 .fastclk(fastclk),
         .led(led),
         .io(io),
         .sw(sw),

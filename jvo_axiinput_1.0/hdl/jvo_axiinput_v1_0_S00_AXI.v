@@ -16,6 +16,7 @@
 	(
 		// Users to add ports here
         input wire sysclk,
+//        input wire fastclk,
         input wire [1:0] sw,
 //        input wire [3:0] btn,
         output wire [3:0] led,
@@ -829,9 +830,9 @@
     reg [C_S_AXI_DATA_WIDTH-1:0] cnt_end [19:0];
     reg [C_S_AXI_DATA_WIDTH-1:0] io_init;
     reg [C_S_AXI_DATA_WIDTH-1:0] max_count;
-    
+
 //    // generate io from 0 to 19
-    always@ (posedge sysclk) begin
+    always@ (posedge S_AXI_ACLK) begin //this is a slower clock
     if (sw[0]==1'b0 & sw[1] == 1'b1) begin  //read mode
         cnt_beg[0] <=slv_reg0;
         cnt_end[0] <=slv_reg1;
