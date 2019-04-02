@@ -38,6 +38,7 @@
 #System Generator
 #########
 !*.mdl
+!*.mdd
 !*.slx
 !*.bxml
 #########
@@ -85,6 +86,7 @@
 !*.elf
 !*.bmm
 !*.xmp
+!Makefile
 
 #Pycharm
 .idea/

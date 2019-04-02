@@ -17,7 +17,7 @@
 		// Users to add ports here
         input wire sysclk,
         input wire [1:0] sw,
-        input wire [3:0] btn,
+//        input wire [3:0] btn,
         output wire [3:0] led,
         output wire led4_r,
         output wire led4_g,
@@ -969,7 +969,7 @@
         .led(led),
         .io(io),
         .sw(sw),
-        .btn(btn),
+//        .btn(btn),
         .led4_r(led4_r),
         .led4_g(led4_g),
         .led4_b(led4_b),   

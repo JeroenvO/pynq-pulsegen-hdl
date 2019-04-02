@@ -17,7 +17,7 @@
 		// Users to add ports here
         input wire sysclk,
         input wire [1:0] sw,
-        input wire [3:0] btn,
+//        input wire [3:0] btn,
         output wire [3:0] led,
         output wire led4_r,
         output wire led4_g,
@@ -86,7 +86,7 @@
         .led(led),
         .io(io),
         .sw(sw),
-        .btn(btn),
+//        .btn(btn),
         .led4_r(led4_r),
         .led4_g(led4_g),
         .led4_b(led4_b),   
@@ -95,8 +95,7 @@
         .led5_b(led5_b)
 	);
 
-	// Add user logic here
-	//port mapping
+	//port mapping from io index to actual arduino header pin. Defined by PCB board layout.
     assign io[0 ]=ar[13];
     assign io[1 ]=ar[12];
     assign io[2 ]=ar[11];
@@ -117,7 +116,5 @@
     assign io[17]=ar[1];
     assign io[18]=a[5];
     assign io[19]=ar[0];
-    
-	// User logic ends
 
 	endmodule

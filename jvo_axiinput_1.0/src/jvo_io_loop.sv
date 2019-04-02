@@ -106,7 +106,7 @@ module jvo_io_loop(
                     end
                 else
                     begin
-                        // disable outputs
+                        // disable output
                         io[c] <= 1'b0;
                     end
             end
