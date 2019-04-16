@@ -28,6 +28,8 @@
         output wire led5_b,
         output wire [13:0] ar,
         output wire [5:0] a,
+        output wire ar_scl,
+        output wire a_sda,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -94,7 +96,9 @@
         .led4_b(led4_b),   
         .led5_r(led5_r),
         .led5_g(led5_g),
-        .led5_b(led5_b)
+        .led5_b(led5_b),
+        .ar_scl(ar_scl),
+        .ar_sda(ar_sda)
 	);
 
 	//port mapping from io index to actual arduino header pin. Defined by PCB board layout.

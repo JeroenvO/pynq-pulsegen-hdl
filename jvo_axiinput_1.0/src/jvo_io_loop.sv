@@ -35,6 +35,8 @@ module jvo_io_loop(
     output reg led5_r,
     output reg led5_g,
     output reg led5_b,
+    output reg ar_scl,
+    output reg ar_sda,
     input wire [31:0] max_count
     );
 
@@ -129,6 +131,19 @@ module jvo_io_loop(
             end
         end
     endgenerate
+
+    // clock trigger pulse on sda and scl
+    always @(posedge clk) begin
+        if (count == 0) begin
+            ar_sda <= 1;
+            ar_scl <= 1;
+        end
+        else begin
+            ar_sda <= 0;
+            ar_scl <= 0;
+        end
+    end
+                
     assign led[0] = io[0];
     assign led[1] = io[1];
     assign led[2] = io[2];

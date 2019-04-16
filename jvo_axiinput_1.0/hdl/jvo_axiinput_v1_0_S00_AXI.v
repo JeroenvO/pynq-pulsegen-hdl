@@ -26,6 +26,8 @@
         output wire led5_r,
         output wire led5_g,
         output wire led5_b,
+        output wire ar_scl,
+        output wire ar_sda,
         output wire [19:0] io,
         // User ports ends
 		// Do not modify the ports beyond this line
@@ -891,6 +893,8 @@
         .led5_r(led5_r),
         .led5_g(led5_g),
         .led5_b(led5_b),
+        .ar_scl(ar_scl),
+        .ar_sda(ar_sda),
         .max_count(max_count),
         .io_init(io_init),
         .cnt_beg(cnt_beg),
