@@ -58,6 +58,7 @@
 	);      
 
     wire [19:0] io;
+    
 // Instantiation of Axi Bus Interface S00_AXI
 	jvo_axiinput_v1_0_S00_AXI # ( 
 		.C_S_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
@@ -76,14 +77,14 @@
 		.S_AXI_BRESP(s00_axi_bresp),
 		.S_AXI_BVALID(s00_axi_bvalid),
 		.S_AXI_BREADY(s00_axi_bready),
-		.S_AXI_ARADDR(s00_axi_araddr),
-		.S_AXI_ARPROT(s00_axi_arprot),
-		.S_AXI_ARVALID(s00_axi_arvalid),
-		.S_AXI_ARREADY(s00_axi_arready),
-		.S_AXI_RDATA(s00_axi_rdata),
-		.S_AXI_RRESP(s00_axi_rresp),
-		.S_AXI_RVALID(s00_axi_rvalid),
-		.S_AXI_RREADY(s00_axi_rready),
+//		.S_AXI_ARADDR(s00_axi_araddr),
+//		.S_AXI_ARPROT(s00_axi_arprot),
+//		.S_AXI_ARVALID(s00_axi_arvalid),
+//		.S_AXI_ARREADY(s00_axi_arready),
+//		.S_AXI_RDATA(s00_axi_rdata),
+//		.S_AXI_RRESP(s00_axi_rresp),
+//		.S_AXI_RVALID(s00_axi_rvalid),
+//		.S_AXI_RREADY(s00_axi_rready),
 		
 		 .sysclk(sysclk),
 //		 .fastclk(fastclk),
@@ -122,5 +123,12 @@
     assign io[17]=ar[1];
     assign io[18]=a[5];
     assign io[19]=ar[0];
-
+assign s00_axi_araddr=0;
+assign s00_axi_arprot=0;
+assign s00_axi_arvalid=0;
+assign s00_axi_arready=0;
+assign s00_axi_rdata=0;
+assign s00_axi_rresp=0;
+assign s00_axi_rvalid=0;
+assign s00_axi_rready=0;
 	endmodule
