@@ -39,6 +39,8 @@ module jvo_io_loop(
     );
 
     integer count = 0;
+    reg init_complete = 0;
+    
     initial begin
     led4_r = 1'b0;
     led4_g = 1'b0;
@@ -49,7 +51,7 @@ module jvo_io_loop(
     end
 
 
-    //counter
+    //counter and indicator leds
     always@ (posedge clk) begin
     if (sw[1] == 1'b1) begin // enable
         if (sw[0] == 1'b1) begin
@@ -57,7 +59,8 @@ module jvo_io_loop(
             led5_g <= 1'b1;
             led5_r <= 1'b0;
             led5_b <= 1'b0;
-                if (count == max_count) begin  // hardcoded one second for 8ns clock
+            if (init_complete) begin
+                if (count == max_count) begin  // end of cycle, reset. max_count is inclusive.
                     count <= 0;
                     led4_r <= ~led4_r;
                     led4_g <= 1'b0;
@@ -66,9 +69,13 @@ module jvo_io_loop(
                 else begin
                     count <= count +1;
                     end
+                end
+            else  // gives one clock cycle delay when init_complete is high. To initialize IO. 
+                init_complete=1;
             end
-        else begin
+        else begin  // paused / programming mode
             //orange
+            init_complete = 0;
             count <= 0;
             led5_g <= 1'b1;
             led5_r <= 1'b1;
@@ -78,8 +85,9 @@ module jvo_io_loop(
             led4_b <= 1'b1;
         end
     end
-    else begin //disable
+    else begin // disable
         //red
+        init_complete = 0;
         count <= 0;
         led5_r <= 1'b1;
         led5_g <= 1'b0;
@@ -95,20 +103,29 @@ module jvo_io_loop(
     generate
         for (c = 0; c < 20; c = c + 1) begin: test  // 20 outputs
             always @(posedge clk) begin
-                if (sw[0]==1'b1 & sw[1]==1'b1)
-                    begin
-                        if (count == cnt_beg[c])
-                            io[c] <= ~io_init[c];
-                        else if (count == cnt_end[c])
+                if (sw[1]==1'b1) begin // enabled
+                    if (sw[0]==1'b1) begin //running
+                        if (init_complete) begin
+                            if (count == cnt_beg[c])
+                                io[c] <= ~io_init[c];
+                            else if (count == cnt_end[c])
+                                io[c] <= io_init[c];
+                            else
+                                io[c] <= io[c];
+                        end
+                        else begin // initialization mode. First cycle after reset.
                             io[c] <= io_init[c];
-                        else
-                            io[c] <= io[c];
+                        end
                     end
-                else
+                    else // paused / programming mode
                     begin
-                        // disable output
-                        io[c] <= 1'b0;
+                        // inverted disable output
+                        io[c] <= 1'b1;
                     end
+                end
+                else begin  // disabled
+                    io[c] <= 1'b0;
+                end
             end
         end
     endgenerate
@@ -116,5 +133,4 @@ module jvo_io_loop(
     assign led[1] = io[1];
     assign led[2] = io[2];
     assign led[3] = io[3];
-
 endmodule
