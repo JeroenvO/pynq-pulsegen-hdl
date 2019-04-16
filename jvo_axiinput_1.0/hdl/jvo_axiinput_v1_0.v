@@ -29,7 +29,7 @@
         output wire [13:0] ar,
         output wire [5:0] a,
         output wire ar_scl,
-        output wire a_sda,
+        output wire ar_sda,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
